@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block body%}
+<!-- ============================================================================================================================================== -->
+<div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!-- ============================================================================================================================================== -->
+<div id="title">
+  <div class="container">
+    <div class="row justify-content-lg-center">
+      <p id="pageInfo"> Application to detect potholes provided an image or a video</p>
+    </div>
+  </div>
+
+  <div id=images class="container">
+    <div class="row">
+      <div class="col">
+        <p id="img_title">Input</p>
+        <img id="picture" src={{ori_image}} class="rounded float-left" alt="Input">
+      </div>
+      <div class="col">
+        <p id="img_title"> Detection</p>
+        <img id="picture" src={{det_image}} class="rounded float-right" alt="Detection">
+      </div>
+    </div>
+  </div>
+
+    <div id=multidataTable class="row justify-content-center">
+      <div class="col-auto">
+        <table class="table table-borderless ">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <form action='/detection' method='POST' enctype="multipart/form-data">
+                  <th><input type="file" name='test_file' class="form-control-file"></th>
+    
+                  <th><input id=predictButton type="submit" value=Detect class="btn btn-primary"></th>
+                </form>
+                <!-- <form action='/download/{{fName}}' method='POST'>
+                  <th><input type="submit" class="btn btn-primary" value=Download></th>
+                </form> -->
+                {% if fName %}
+                <form action='/download/{{fName}}' method='POST'>
+                  <th><input type="submit" class="btn btn-primary" value=Download></th>
+                </form>
+                {% else %}
+                <form action='/download_error' method='POST'>
+                  <th><input type="submit" class="btn btn-primary" value=Download></th>
+                </form>
+                {% endif %}
+                <!-- <th>
+                  <a href={{path}} download="result">
+                    <input type="button" class="btn btn-primary" value=Download>
+                  </a>
+                </th> -->
+              </tr>
+            </thead>
+          </table>
+        </table>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}
